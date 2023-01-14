@@ -1,23 +1,31 @@
-name: Sync and merge upstream repository
+name: 'Upstream Sync'
 on:
   push:
     branches: [ master ]
- 
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+  
 jobs:
-  sync:
+  sync_latest_from_upstream:
     runs-on: ubuntu-latest
   
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Sync and merge upstream repository with your current repository
-        uses: dabreadman/sync-upstream-repo@v1.0.0.b
+      - name: Checkout target repo
+        uses: actions/checkout@v2
         with:
-          # URL of gitHub public upstream repo
-          upstream_repo: https://github.com/BilliG-14/BilliG-FRONT.git
-          # Branch to merge from upstream (defaults to downstream branch)
-          upstream_branch: master
-          # Branch to merge into downstream
-          downstream_branch: master
-          # GitHub Bot token
-          token: ${{secrets.NEW_GITHUB_TOKEN}}
+          ref:  master
+          persist-credentials: false
+      - name: Sync upstream changes
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          target_sync_branch: master
+          # REQUIRED 'target_repo_token' exactly like this!
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_sync_branch: master
+          upstream_sync_repo: https://github.com/BilliG-14/BilliG-FRONT.git
+          upstream_repo_access_token: ${{ secrets.BILLIG_TOKEN }}
+
+          # Set test_mode true to run tests instead of the true action!!
+          test_mode: false
