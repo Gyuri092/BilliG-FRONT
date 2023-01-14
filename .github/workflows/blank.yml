@@ -1,12 +1,7 @@
 name: Sync and merge upstream repository
 on:
-  schedule: 
-  - cron: "0 8 * * *" #Runs at 8:00 UTC(5:00 in Korea) every day.
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch:
  
 jobs:
   sync:
