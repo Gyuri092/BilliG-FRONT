@@ -17,6 +17,6 @@ jobs:
           git remote add upstream 'https://github.com/BilliG-14/BilliG-FRONT.git'
           git fetch upstream
           git checkout master
-          git merge --no-edit upstream/master
+          git merge -Xtheirs upstream/master
           git push origin master
           # etc
