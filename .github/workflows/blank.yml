@@ -14,7 +14,7 @@ jobs:
         uses: dabreadman/sync-upstream-repo@v1.0.0.b
         with:
           # URL of gitHub public upstream repo
-          downstream_repo: https://github.com/BilliG-14/BilliG-FRONT.git
+          upstream_repo: https://github.com/BilliG-14/BilliG-FRONT.git
           # Branch to merge from upstream (defaults to downstream branch)
           upstream_branch: master
           # Branch to merge into downstream
